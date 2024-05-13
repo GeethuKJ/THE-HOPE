@@ -22,6 +22,7 @@ img {
 }
 button {
     font-family: "InterRegular";
+    cursor: pointer;
 }
 body {
     font-family: "InterRegular";
@@ -239,6 +240,22 @@ header .logoProfile .profile .profileContainer {
     align-items: center;
     gap: 10px;
     margin-right: 50px;
+}
+
+header .logoProfile .profile .profileContainer {
+    
+}
+
+header .logoProfile .profile .profileContainer .profileFrame {
+    display: flex;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+}
+
+header .logoProfile .profile .profileContainer img {
+    border-radius: 50%;
+
 }
 
 header .logoProfile .profile .name {
@@ -576,6 +593,8 @@ td {
     .profile
     .profileImage {
     width: 100px;
+    height: 100px;
+    display: flex;
     margin-bottom: 16px;
 }
 #therapistSingle .container .bottom .therapistDetails .left .profile p.name {
@@ -1080,6 +1099,7 @@ td {
     display: flex;
     justify-content: end;
 }
+
 #therapist-dashboard .bottom .tableContainer ul li .buttonContainer button {
     padding: 8px 20px;
     border-radius: 6px;
@@ -1404,6 +1424,15 @@ td {
     .profileImage {
     width: 40px;
 }
+#viewProblem .profileImage {
+    display: flex;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
+#viewProblem .profileImage img {
+    border-radius: 50%;
+}
 
 #viewProblem
     .container
@@ -1457,6 +1486,18 @@ td {
 }
 #viewProblem .container .top .bottom .solutionSection {
     margin-top: 20px;
+}
+#viewProblem .container .top .bottom .solutionSection .solutions {
+    display: flex;    
+    justify-content: space-between;
+
+}
+#viewProblem .container .top .bottom .solutionSection li a {
+    /* display: flex; */
+    justify-content: space-between;
+    text-transform: capitalize;
+    cursor: pointer;
+    color: #8ac185 !important;
 }
 
 #viewProblem
@@ -1639,8 +1680,14 @@ td {
     width: 70%;
 }
 #profile .profileContainer .container .profilePicture {
-    width: 110px;
+    display: flex;
     margin-bottom: 32px;
+    width: 110px;
+    height: 110px;
+}
+
+#profile .profileContainer .container .profilePicture img {
+    border-radius: 50%;
 }
 
 #profile .profileContainer .container .profileDetails form {
@@ -1653,6 +1700,45 @@ td {
     align-items: center;
     margin-bottom: 21px;
 }
+#profile .profileContainer .container .profileDetails form .form-row .active{
+    border: 1px solid #000000;
+}
+
+#profile .profileContainer .container .profileDetails form .editButtonContainer {
+    gap: 10px;
+}
+#editButtonContainer {
+    display: flex;
+    width: 100%;
+    justify-content: end;
+}
+
+#editButton {
+    color: #8ac185;
+    border: 1px solid #7c847c;
+    padding: 10px 28px;
+    border-radius: 58px;
+}
+#cancelButton {
+    color: #8ac185;
+    border: 1px solid #7c847c;
+    padding: 10px 28px;
+    border-radius: 58px;
+}
+#saveButton {
+    color: #8ac185;
+    border: 1px solid #7c847c;
+    padding: 10px 28px;
+    border-radius: 58px;
+}
+
+#profile .profileContainer .container .profileDetails form .form-row .saveButton {
+    display: none;   
+}
+#profile .profileContainer .container .profileDetails form .form-row .cancelButton {
+    display: none;
+}
+
 #profile .profileContainer .container .profileDetails form .form-row > div {
     flex: 1;
     margin-right: 10px;
@@ -1835,6 +1921,15 @@ td {
     .profileName
     .profileImage {
     width: 40px;
+    height: 40px;
+}
+#userSolutions .profileImage {
+    width: 40px;
+    height: 40px;
+    display: flex;
+}
+#userSolutions .profileImage img {
+    border-radius: 50%;
 }
 
 #userSolutions

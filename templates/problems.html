@@ -22,7 +22,17 @@
             <div class="profile">
                 <div class="profileContainer">
                     <div class="profileFrame">
-                        <img src="{% static '/images/profile-image.png' %}" alt="" />
+                        {% if request.user.profile.profile_image %}
+                        <img
+                            src="{{ request.user.profile.profile_image.url }}"
+                            alt="User image"
+                        />
+                        {% else %}
+                        <img
+                            src="{% static '/images/profile-image.png' %}"
+                            alt="Default profile image"
+                        />
+                        {% endif %}
                     </div>
                     <span class="name">{{ request.user.profile.name }}</span>
                     <div class="downArrow">

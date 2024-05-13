@@ -22,9 +22,17 @@
         <div class="profile">
             <div class="profileContainer">
                 <div class="profileFrame">
-                    <img
-                        src="{% static '/images/profile-image.png' %}"
-                        alt="" />
+                    {% if request.user.profile.profile_image %}
+                        <img
+                            src="{{ request.user.profile.profile_image.url }}"
+                            alt="User image"
+                        />
+                        {% else %}
+                        <img
+                            src="{% static '/images/profile-image.png' %}"
+                            alt="Default profile image"
+                        />
+                        {% endif %}
                 </div>
                 <span class="name">{{ request.user.profile.name }}</span>
                 <div class="downArrow">
@@ -73,17 +81,25 @@
             <div class="profileContainer">
                 <div class="container">
                     <div class="profilePicture">
+                        {% if request.user.profile.profile_image %}
+                        <img
+                            src="{{ request.user.profile.profile_image.url }}"
+                            alt="User image"
+                        />
+                        {% else %}
                         <img src="{% static '/images/profile-background.png' %}" alt="background" />
+                        {% endif %}
                     </div>
                     <div class="profileDetails">
-                        <form action="#" method="post">
+                        <form action="{% url 'edit_profile_therapist' %}" method="post">
                             {% csrf_token %}
                             <div class="form-row">
+                                <input type="text" value="{{ therapist.id }}" name="therapist_id" id="therapistHIdden" hidden>
                                 <div class="name">
                                     <div class="label-input">
-                                        <label for="name">Name</label>
+                                        <label for="userName">Name</label>
                                     </div>
-                                    <input type="text" id="name" value="{{ therapist.name }}" name="name" />
+                                    <input type="text" id="userName" value="{{ therapist.name }}" name="name" readonly/>
                                 </div>
                                 <div class="phone">
                                     <div class="label-input">
@@ -97,7 +113,7 @@
                                     <div class="label-input">
                                         <label for="email">Email</label>
                                     </div>
-                                    <input type="email" value="{{ therapist.email }}" id="email" name="email" />
+                                    <input type="email" value="{{ therapist.email }}" id="email" name="email" readonly/>
                                 </div>
                                 <div class="joinedDate">
                                     <div class="label-input">
@@ -125,18 +141,21 @@
                                     <div class="label-input">
                                         <label for="gender">Gender</label>
                                         <div class="selector">
-                                            <input type="radio" id="male" name="gender" value="male" {% if therapist.gender == 'male' %}checked{% endif %} readonly>
+                                            <input type="radio" id="male" name="gender" value="male" {% if therapist.gender == 'male' %}checked{% endif %} disabled>
                                             <label for="male">Male</label>
-                                            <input type="radio" id="female" name="gender" value="female" {% if therapist.gender == 'female' %}checked{% endif %} readonly>
+                                            <input type="radio" id="female" name="gender" value="female" {% if therapist.gender == 'female' %}checked{% endif %} disabled>
                                             <label for="female">Female</label>
-                                            <input type="radio" id="others" name="gender" value="others" {% if therapist.gender == 'others' %}checked{% endif %} readonly>
+                                            <input type="radio" id="others" name="gender" value="others" {% if therapist.gender == 'others' %}checked{% endif %} disabled>
                                             <label for="others">Others</label>
                                         </div>
+                                        <input type="text" id="hiddenRadioValue" name="hiddenRadioValue" value="{{ therapist.gender }}" hidden>
                                     </div>
                                 </div>
                             </div>
-                            <div class="form-row">
-                                <button type="submit">Edit profile</button>
+                            <div class="form-row editButtonContainer">
+                                <button type="button" id="editButton">Edit profile</button>
+                                <button type="button" id="cancelButton" class="cancelButton">Cancel</button>
+                                <button type="Submit" id="saveButton" class="saveButton">Save</button>
                             </div>
                         </form>
                     </div>
@@ -159,7 +178,45 @@
         </form>
     </div>
 </div>
+<script>
+    const userName = document.getElementById('userName')
+    const email = document.getElementById("email")
+    const age = document.getElementById("age")
+    const radioButtons = document.getElementsByName("gender")
+    const editButton = document.getElementById("editButton")
+    const cancelButton = document.getElementById("cancelButton")
+    const saveButton = document.getElementById("saveButton")
+    const hiddenRadioValue = document.getElementById("hiddenRadioValue")
 
+    editButton.onclick = () => {
+        userName.readOnly = false
+        email.readOnly = false
+        age.readOnly = false
+        userName.classList.add("active")
+        email.classList.add("active")
+        age.classList.add("active")
+        radioButtons.forEach(button => {
+            button.disabled = !button.disabled 
+        })
+        editButton.style.display = "none"
+        cancelButton.style.display = "block"
+        saveButton.style.display = "block"
+    }
+
+    radioButtons.forEach((radioButton)=> {
+        radioButton.addEventListener('change', function() {
+            if (this.checked) {
+                hiddenRadioValue.value = this.value;
+                console.log(hiddenRadioValue.value);
+            }
+        });
+    });
+
+    cancelButton.onclick = () => {
+        location.reload();
+    }
+
+</script>
 <script src="{% static 'js/app.js' %}"></script>
 <script src="{% static '/js/logout-modal.js' %}"></script>
 </body>

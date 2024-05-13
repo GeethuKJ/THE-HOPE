@@ -24,9 +24,17 @@
                 <div class="profile">
                     <div class="profileContainer">
                         <div class="profileFrame">
+                            {% if request.user.patient.profile_image %}
+                            <img
+                                src="{{ request.user.patient.profile_image.url }}"
+                                alt="User image"
+                            />
+                            {% else %}
                             <img
                                 src="{% static '/images/profile-image.png' %}"
-                                alt="" />
+                                alt=""
+                            />
+                            {% endif %}
                         </div>
                         <span class="name"> {{ request.user.patient.name }} </span>
                         <div class="downArrow">
@@ -142,7 +150,15 @@
                                             <div class="subject">
                                                 <div class="profileName">
                                                     <div class="profileImage">
-                                                        <img src="{% static '/images/problem-user.png' %}" alt="">
+                                                        {% if solution.therapist.profile_image %}
+                                                        <img
+                                                            src="{{ solution.therapist.profile_image.url }}"
+                                                            alt="no - image" />
+                                                        {% else %}
+                                                        <img
+                                                            src="{% static '/images/problem-user.png' %}"
+                                                            alt="" />
+                                                        {% endif %}
                                                     </div>
                                                     <div class="name">
                                                         {{ solution.therapist.name }}
@@ -159,7 +175,7 @@
                                             </div>
                                         </div>
                                         <div class="buttonContainer">
-                                            <a href="{% url 'user_therapist_single' therapist_id=solution.therapist.id %}" class="backgroundButton">View therapist</a>
+                                            <a href="{% url 'user_therapist_single' therapist_id=solution.therapist.therapist_id %}" class="backgroundButton">View therapist</a>
                                         </div>                                        
                                     </li>
                                     {% endfor %}

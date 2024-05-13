@@ -24,9 +24,17 @@
                 <div class="profile">
                     <div class="profileContainer">
                         <div class="profileFrame">
+                            {% if request.user.patient.profile_image %}
+                            <img
+                                src="{{ request.user.patient.profile_image.url }}"
+                                alt="User image"
+                            />
+                            {% else %}
                             <img
                                 src="{% static '/images/profile-image.png' %}"
-                                alt="" />
+                                alt=""
+                            />
+                            {% endif %}
                         </div>
                         <span class="name"> {{ request.user.patient.name }} </span>
                         <div class="downArrow">
@@ -101,9 +109,16 @@
                                 <div class="left">
                                     <div class="profile">
                                         <div class="profileImage">
-                                            <img
+                                                {% if therapist.profile_image %}
+                                                <img
+                                                    src="{{ therapist.profile_image.url }}"
+                                                    alt="User image"
+                                                />
+                                                {% else %}
+                                                <img
                                                 src="{% static '/images/therapist.png' %}"
                                                 alt="profile image" />
+                                                {% endif %}
                                         </div>
                                         <p class="name">{{therapist.name}}</p>
                                         <p class="therapistId">
@@ -155,99 +170,30 @@
                                                 Total solutions posted
                                             </p>
                                             <span class="contentText"
-                                                >{{therapist.total_solutions_posted}}</span
+                                                >{{solution_count }}</span
                                             >
                                         </div>
                                     </div>
-                                    <!-- <div class="recentSolutions">
+                                    <div class="recentSolutions">
                                         <h4>Recently posted solution</h4>
                                         <ul>
+                                            {% for solution in solutions %}
                                             <li>
                                                 <div class="headingButton">
                                                     <div
                                                         class="solutionHeading">
-                                                        Major Depressive
-                                                        Disorder
+                                                        {{ solution.problem.title}}
                                                     </div>
-                                                    <a href="#">View problem</a>
+                                                    <!-- <a href="#">View problem</a> -->
                                                 </div>
                                                 <div class="solution">
                                                     <p class="solutions">
-                                                        Treatment for Major
-                                                        Depressive Disorder
-                                                        typically involves a
-                                                        combination of
-                                                        psychotherapy and
-                                                        medication prescribed by
-                                                        a mental health
-                                                        professional. It's
-                                                        crucial for individuals
-                                                        to seek professional
-                                                        help and maintain a
-                                                        consistent treatment
-                                                        plan for effective
-                                                        management of symptoms.
+                                                        {{  solution.solution }}
                                                     </p>
                                                 </div>
                                             </li>
-                                            <li>
-                                                <div class="headingButton">
-                                                    <div
-                                                        class="solutionHeading">
-                                                        Major Depressive
-                                                        Disorder
-                                                    </div>
-                                                    <a href="#">View problem</a>
-                                                </div>
-                                                <div class="solution">
-                                                    <p class="solutions">
-                                                        Treatment for Major
-                                                        Depressive Disorder
-                                                        typically involves a
-                                                        combination of
-                                                        psychotherapy and
-                                                        medication prescribed by
-                                                        a mental health
-                                                        professional. It's
-                                                        crucial for individuals
-                                                        to seek professional
-                                                        help and maintain a
-                                                        consistent treatment
-                                                        plan for effective
-                                                        management of symptoms.
-                                                    </p>
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <div class="headingButton">
-                                                    <div
-                                                        class="solutionHeading">
-                                                        Major Depressive
-                                                        Disorder
-                                                    </div>
-                                                    <a href="#">View problem</a>
-                                                </div>
-                                                <div class="solution">
-                                                    <p class="solutions">
-                                                        Treatment for Major
-                                                        Depressive Disorder
-                                                        typically involves a
-                                                        combination of
-                                                        psychotherapy and
-                                                        medication prescribed by
-                                                        a mental health
-                                                        professional. It's
-                                                        crucial for individuals
-                                                        to seek professional
-                                                        help and maintain a
-                                                        consistent treatment
-                                                        plan for effective
-                                                        management of symptoms.
-                                                    </p>
-                                                </div>
-                                            </li>
-                                        </ul>
-                                    </div> -->
+                                            {% endfor %}
+                                    </div>
                                 </div>
                             </div>
                         </div>

@@ -51,8 +51,12 @@ def user_therapist(request):
 
 
 def user_therapist_single(request, therapist_id):
-    therapist = get_object_or_404(Therapist, id=therapist_id)
-    return render(request, 'userTherapistSinglePage.html', {'therapist': therapist})
+
+    therapist = get_object_or_404(Therapist, therapist_id=therapist_id)
+    solutions  = Solution.objects.filter(therapist__therapist_id = therapist_id )
+    solution_count = Solution.objects.filter(therapist__therapist_id = therapist_id ).count()
+
+    return render(request, 'userTherapistSinglePage.html', {'therapist': therapist, 'solutions' : solutions, 'solution_count' : solution_count})
 
 
 def user_profile(request):
@@ -91,3 +95,26 @@ def user_profile(request):
             )
 
         return redirect('profile')
+    
+
+def edit_profile_user(request):
+    if request.method == 'POST':
+        name = request.POST.get('name')     
+        email = request.POST.get('email')     
+        age = request.POST.get('age')
+        id = request.POST.get('patient_id')
+        gender = request.POST.get('hiddenRadioValue')
+
+        if Patient.objects.filter(id=id).exists():
+
+            therapist = Patient.objects.get(id=id)
+            therapist.name = name
+            therapist.email = email
+            therapist.age = age
+            therapist.gender = gender
+            therapist.save()
+
+        return redirect('profile')
+    
+    return redirect('profile')
+    

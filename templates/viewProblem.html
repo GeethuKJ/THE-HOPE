@@ -24,9 +24,17 @@
                 <div class="profile">
                     <div class="profileContainer">
                         <div class="profileFrame">
+                            {% if request.user.profile.profile_image %}
+                            <img
+                                src="{{ request.user.profile.profile_image.url }}"
+                                alt="User image"
+                            />
+                            {% else %}
                             <img
                                 src="{% static '/images/profile-image.png' %}"
-                                alt="" />
+                                alt="Default profile image"
+                            />
+                            {% endif %}
                         </div>
                         <span class="name">{{ request.user.profile.name }}</span>
                         <div class="downArrow">
@@ -93,9 +101,15 @@
                                         <div class="subject">
                                             <div class="profileName">
                                                 <div class="profileImage">
+                                                    {% if problem.patient.profile_image %}
+                                                    <img
+                                                        src="{{ problem.patient.profile_image.url }}"
+                                                        alt="no - image" />
+                                                    {% else %}
                                                     <img
                                                         src="{% static '/images/problem-user.png' %}"
                                                         alt="" />
+                                                    {% endif %}
                                                 </div>
                                                 <div class="name">
                                                     {{problem.patient.name}}
@@ -161,9 +175,15 @@
                                                     <div class="profileName">
                                                         <div
                                                             class="profileImage">
-                                                            <img
-                                                                src="{% static '/images/problem-user.png' %}"
-                                                                alt="" />
+                                                                {% if solution.therapist.profile_image %}
+                                                                <img
+                                                                    src="{{ solution.therapist.profile_image.url }}"
+                                                                    alt="no - image" />
+                                                                {% else %}
+                                                                <img
+                                                                    src="{% static '/images/problem-user.png' %}"
+                                                                    alt="" />
+                                                                {% endif %}
                                                         </div>
                                                         <div class="name">
                                                             {{ solution.therapist.name }}
@@ -175,6 +195,9 @@
                                                         </div>
                                                     </div>
                                                 </div>
+                                                <a class="delete" id="deleteSolution" href="{% url 'delete_solution' solution_id=solution.id %}">
+                                                    delete
+                                                </a>
                                             </div>
                                         </li>
                                         {% endfor %}
@@ -201,7 +224,9 @@
                 </form>
             </div>
         </div>
-
+        <script>
+            const deleteSolution = document.getElementById('deleteSolution') 
+        </script>
         <script src="{% static 'js/app.js' %}"></script>
         <script src="{% static '/js/logout-modal.js' %}"></script>
         <script src="{% static '/js/modal.js' %}"></script>

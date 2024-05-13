@@ -4,7 +4,11 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link rel="icon" type="image/svg+xml" href="{% static '/images/logo.svg' %}" />
+        <link
+            rel="icon"
+            type="image/svg+xml"
+            href="{% static '/images/logo.svg' %}"
+        />
         <link rel="stylesheet" href="{% static '/css/style.css' %}" />
         <link rel="stylesheet" href="{% static '/css/font.css' %}" />
         <title>Hope</title>
@@ -17,7 +21,8 @@
                         <span class="logoFrame">
                             <img
                                 src="{% static '/images/logo.png' %}"
-                                alt="logo" />
+                                alt="logo"
+                            />
                         </span>
                     </a>
                 </div>
@@ -26,14 +31,18 @@
                         <div class="profileFrame">
                             <img
                                 src="{% static '/images/profile-image.png' %}"
-                                alt="" />
+                                alt=""
+                            />
                         </div>
-                        <span class="name"> {{ request.user.patient.name }} </span>
+                        <span class="name">
+                            {{ request.user.patient.name }}
+                        </span>
                         <div class="downArrow">
                             <a href="{% url 'profile' %}">
                                 <img
                                     src="{% static '/images/arrow-down.svg' %}"
-                                    alt="down arrow" />
+                                    alt="down arrow"
+                                />
                             </a>
                         </div>
                     </div>
@@ -48,7 +57,8 @@
                             <div class="iconFrame">
                                 <img
                                     src="{% static '/images/dashboard.svg' %}"
-                                    alt="home" />
+                                    alt="home"
+                                />
                             </div>
                             Dashboard
                         </a>
@@ -59,7 +69,8 @@
                             ><div class="iconFrame">
                                 <img
                                     src="{% static '/images/therapist.svg' %}"
-                                    alt="therapist" />
+                                    alt="therapist"
+                                />
                             </div>
                             Therapist's</a
                         >
@@ -69,7 +80,8 @@
                             ><div class="iconFrame">
                                 <img
                                     src="{% static '/images/user.svg' %}"
-                                    alt="user" />
+                                    alt="user"
+                                />
                             </div>
                             User's</a
                         >
@@ -80,7 +92,8 @@
                         <div class="iconFrame">
                             <img
                                 src="{% static '/images/logout.svg' %}"
-                                alt="" />
+                                alt=""
+                            />
                         </div>
                         Logout
                     </a>
@@ -102,9 +115,17 @@
                                 <div class="left">
                                     <div class="profile">
                                         <div class="profileImage">
+                                            {% if request.user.profile.profile_image  %}
                                             <img
-                                                src="{% static '/images/therapist.png' %}"
-                                                alt="profile image" />
+                                                src="{{ request.user.profile.profile_image.url }}"
+                                                alt="User image"
+                                            />
+                                            {% else %}
+                                            <img
+                                                src="{% static '/images/profile-image.png' %}"
+                                                alt="Default profile image"
+                                            />
+                                            {% endif %}
                                         </div>
                                         <p class="name">{{therapist.name}}</p>
                                         <p class="therapistId">
@@ -171,7 +192,8 @@
                                             <li>
                                                 <div class="headingButton">
                                                     <div
-                                                        class="solutionHeading">
+                                                        class="solutionHeading"
+                                                    >
                                                         Major Depressive
                                                         Disorder
                                                     </div>
@@ -199,7 +221,8 @@
                                             <li>
                                                 <div class="headingButton">
                                                     <div
-                                                        class="solutionHeading">
+                                                        class="solutionHeading"
+                                                    >
                                                         Major Depressive
                                                         Disorder
                                                     </div>
@@ -227,7 +250,8 @@
                                             <li>
                                                 <div class="headingButton">
                                                     <div
-                                                        class="solutionHeading">
+                                                        class="solutionHeading"
+                                                    >
                                                         Major Depressive
                                                         Disorder
                                                     </div>
@@ -269,8 +293,16 @@
                 <form method="post" action="{% url 'logout_user' %}">
                     {% csrf_token %}
                     <div class="buttonContainer">
-                        <button type="button" class="borderButton" onclick="closeLogoutModal()">Cancel</button>
-                        <button type="submit" class="backgroundButton">Logout</button>
+                        <button
+                            type="button"
+                            class="borderButton"
+                            onclick="closeLogoutModal()"
+                        >
+                            Cancel
+                        </button>
+                        <button type="submit" class="backgroundButton">
+                            Logout
+                        </button>
                     </div>
                 </form>
             </div>
@@ -282,14 +314,14 @@
             var currentPath = window.location.pathname;
 
             // Get all navigation links
-            var navLinks = document.querySelectorAll('nav a');
+            var navLinks = document.querySelectorAll("nav a");
 
             // Iterate through each navigation link
-            navLinks.forEach(function(link) {
+            navLinks.forEach(function (link) {
                 // Check if the current path matches the link's href attribute
-                if (currentPath === link.getAttribute('href')) {
+                if (currentPath === link.getAttribute("href")) {
                     // Add the active class to the link's parent <li> element
-                    link.parentElement.classList.add('active');
+                    link.parentElement.classList.add("active");
                 }
             });
         </script>

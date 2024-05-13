@@ -32,6 +32,9 @@ def login_view(request):
                     elif Therapist.objects.filter(user=user).exists():
                         role = 'therapist'
                         return redirect('/therapist-dashboard/')
+                    elif Therapist.objects.filter(user=user,user_role = "therapist").exists():
+                        role = 'admin'
+                        return redirect('/admin/dashboard/')
                     else:
                         message = "User role doesn't exist"
                 else:
@@ -53,13 +56,14 @@ def patient_registration(request):
         email_id = request.POST.get('email_id')
         password = request.POST.get('password')
         confirm_password = request.POST.get('confirm_password')
+        age = request.POST.get('age')
+        gender = request.POST.get('hiddenRadioValue')
         
         if password == confirm_password:
             if not User.objects.filter(username=phone_number).exists():
                 user = User.objects.create_user(username=phone_number,password=password,email=email_id)
                 user_id = user.pk
                 patient_id = f'USR00{user_id}'
-                print(patient_id, "=========================================")
                 
                 patient = Patient.objects.create(
                     patient_id=patient_id,
@@ -69,6 +73,8 @@ def patient_registration(request):
                     password=password,
                     joined_from=timezone.now(),
                     user=user,
+                    age=age,
+                    gender=gender,
                 )
                 login_url = reverse('login')
                 return redirect(login_url)

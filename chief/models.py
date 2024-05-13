@@ -11,6 +11,11 @@ def generate_file_path(instance, filename, image_category):
 def get_therapist_idproof_file_path(instance, filename):
     return generate_file_path(instance, filename, 'therapist-idproof', 'image')
 
+THERAPIST_USER_ROLE = [
+    ('admin', 'admin'),
+    ('therapist', 'Therapist'),
+]
+
 THERAPIST_REQUEST_STATUS_CHOICES = [
     ("pending", 'Pending'),
     ("approved", 'Approved'),
@@ -47,7 +52,9 @@ class Therapist(models.Model):
     joined_from = models.DateTimeField(max_length=100)
     user = models.OneToOneField(User, on_delete=models.CASCADE, null=True, blank=True,related_name="profile")
     password = models.CharField(null=True, blank=True)
-
+    profile_image = models.ImageField(upload_to='profile_images/',null=True, blank=True)
+    user_role = models.CharField(choices=THERAPIST_USER_ROLE,default="therapist")
+    
     class Meta:
         db_table = 'chief_therapist'
         verbose_name = _('Therapist')
@@ -82,6 +89,7 @@ class Patient(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, null=True, blank=True)
     password = models.CharField(null=True, blank=True)
     last_posted_problem = models.ForeignKey('Problem', on_delete=models.SET_NULL, related_name='last_posted_for_patient', null=True, blank=True)
+    profile_image = models.ImageField(upload_to='profile_images/',null=True, blank=True)
 
     class Meta:
         db_table = 'chief_patient'
@@ -113,6 +121,7 @@ class Solution(models.Model):
     problem = models.ForeignKey(Problem, on_delete=models.CASCADE, related_name='solution', null=True, blank=True)
     solution = models.TextField()
     date_added = models.DateTimeField(max_length=100, null=True, blank=True)
+    is_delete = models.BooleanField(default=False)
 
     class Meta:
         db_table = 'chief_solution'

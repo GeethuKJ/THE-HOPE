@@ -4,7 +4,11 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link rel="icon" type="image/svg+xml" href="{% static '/images/logo.svg' %}" />
+        <link
+            rel="icon"
+            type="image/svg+xml"
+            href="{% static '/images/logo.svg' %}"
+        />
         <link rel="stylesheet" href="{% static '/css/style.css' %}" />
         <link rel="stylesheet" href="{% static '/css/font.css' %}" />
         <title>Hope</title>
@@ -17,16 +21,25 @@
                         <span class="logoFrame">
                             <img
                                 src="{% static '/images/logo.png' %}"
-                                alt="logo" />
+                                alt="logo"
+                            />
                         </span>
                     </a>
                 </div>
                 <div class="profile">
                     <div class="profileContainer">
                         <div class="profileFrame">
+                            {% if request.user.patient.profile_image %}
+                            <img
+                                src="{{ request.user.patient.profile_image.url }}"
+                                alt="User image"
+                            />
+                            {% else %}
                             <img
                                 src="{% static '/images/profile-image.png' %}"
-                                alt="" />
+                                alt=""
+                            />
+                            {% endif %}
                         </div>
                         <span class="name">
                             {{ request.user.patient.name }}
@@ -35,7 +48,8 @@
                             <a href="{% url 'profile' %}">
                                 <img
                                     src="{% static '/images/arrow-down.svg' %}"
-                                    alt="down arrow" />
+                                    alt="down arrow"
+                                />
                             </a>
                         </div>
                     </div>
@@ -50,7 +64,8 @@
                             <div class="iconFrame">
                                 <img
                                     src="{% static '/images/dashboard.svg' %}"
-                                    alt="home" />
+                                    alt="home"
+                                />
                             </div>
                             Dashboard
                         </a>
@@ -60,7 +75,8 @@
                             <div class="iconFrame">
                                 <img
                                     src="{% static '/images/therapist.svg' %}"
-                                    alt="therapist" />
+                                    alt="therapist"
+                                />
                             </div>
                             Solution
                         </a>
@@ -70,7 +86,8 @@
                             <div class="iconFrame">
                                 <img
                                     src="{% static '/images/therapist.svg' %}"
-                                    alt="therapist" />
+                                    alt="therapist"
+                                />
                             </div>
                             Therapist
                         </a>
@@ -81,7 +98,8 @@
                         <div class="iconFrame">
                             <img
                                 src="{% static '/images/logout.svg' %}"
-                                alt="" />
+                                alt=""
+                            />
                         </div>
                         Logout
                     </a>
@@ -97,7 +115,8 @@
                                 <div class="iconFrame">
                                     <img
                                         src="{% static '/images/user.svg' %}"
-                                        alt="user" />
+                                        alt="user"
+                                    />
                                 </div>
                             </div>
                             <div class="right">
@@ -110,7 +129,8 @@
                                 <div class="iconFrame">
                                     <img
                                         src="{% static '/images/user.svg' %}"
-                                        alt="user" />
+                                        alt="user"
+                                    />
                                 </div>
                             </div>
                             <div class="right">
@@ -127,7 +147,8 @@
                             <div class="chart">
                                 <canvas
                                     id="myChart"
-                                    style="height: 70vh;"></canvas>
+                                    style="height: 70vh"
+                                ></canvas>
                             </div>
                         </div>
                         <div class="tableContainer">
@@ -170,7 +191,8 @@
                         <button
                             type="button"
                             class="borderButton"
-                            onclick="closeLogoutModal()">
+                            onclick="closeLogoutModal()"
+                        >
                             Cancel
                         </button>
                         <button type="submit" class="backgroundButton">
@@ -184,32 +206,35 @@
         <script src="{% static 'js/app.js' %}"></script>
         <script src="{% static '/js/logout-modal.js' %}"></script>
         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-        {% comment %} <script src="{% static 'js/user-dashboard-chart.js' %}"></script> {% endcomment %}
+        {% comment %}
+        <script src="{% static 'js/user-dashboard-chart.js' %}"></script>
+        {% endcomment %}
         <script>
             // Get the current path of the page
             var currentPath = window.location.pathname;
 
             // Get all navigation links
-            var navLinks = document.querySelectorAll('nav a');
+            var navLinks = document.querySelectorAll("nav a");
 
             // Iterate through each navigation link
-            navLinks.forEach(function(link) {
+            navLinks.forEach(function (link) {
                 // Check if the current path matches the link's href attribute
-                if (currentPath === link.getAttribute('href')) {
+                if (currentPath === link.getAttribute("href")) {
                     // Add the active class to the link's parent <li> element
-                    link.parentElement.classList.add('active');
+                    link.parentElement.classList.add("active");
                 }
             });
         </script>
         <script>
             // Truncate last posted problem text
-            document.addEventListener("DOMContentLoaded", function() {
-                var truncateElements = document.querySelectorAll('.truncate');
-                truncateElements.forEach(function(element) {
+            document.addEventListener("DOMContentLoaded", function () {
+                var truncateElements = document.querySelectorAll(".truncate");
+                truncateElements.forEach(function (element) {
                     var maxLength = 200; // Set the maximum length for the text
                     var text = element.textContent;
                     if (text.length > maxLength) {
-                        element.textContent = text.substring(0, maxLength) + '...';
+                        element.textContent =
+                            text.substring(0, maxLength) + "...";
                     }
                 });
             });

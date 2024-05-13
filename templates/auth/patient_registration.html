@@ -42,6 +42,7 @@
             <input type="radio" id="other" name="gender" value="other">
             <label for="other">Other</label>
         </div>
+        <input type="text" id="hiddenRadioValue" name="hiddenRadioValue" value="" hidden>
     </div>
     <div class="passwordContainer">
         <div class="field">
@@ -74,4 +75,18 @@
         </p>
     </div>
 </form>
+<script>
+    const radioButtons = document.getElementsByName("gender")
+    const hiddenRadioValue = document.getElementById("hiddenRadioValue")
+
+    radioButtons.forEach((radioButton)=> {
+        radioButton.addEventListener('change', function() {
+            if (this.checked) {
+                hiddenRadioValue.value = this.value;
+                console.log(hiddenRadioValue.value);
+            }
+        });
+    });
+
+</script>
 {% endblock %}

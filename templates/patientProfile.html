@@ -89,17 +89,25 @@
             <div class="profileContainer">
                 <div class="container">
                     <div class="profilePicture">
+                        {% if request.user.patient.profile_image %}
+                        <img
+                            src="{{ request.user.patient.profile_image.url }}"
+                            alt="User image"
+                        />
+                        {% else %}
                         <img src="{% static '/images/profile-background.png' %}" alt="background" />
+                        {% endif %}
                     </div>
                     <div class="profileDetails">
-                        <form action="#" method="post">
+                        <form action="{% url 'edit_profile_user' %}" method="post">
                             {% csrf_token %}
                             <div class="form-row">
+                                <input type="text" value="{{ patient.id }}" name="patient_id" id="patientHIdden" hidden>
                                 <div class="name">
                                     <div class="label-input">
                                         <label for="name">Name</label>
                                     </div>
-                                    <input type="text" id="name" value="{{ patient.name }}" name="name" />
+                                    <input type="text" id="userName" value="{{ patient.name }}" name="name" readonly/>
                                 </div>
                                 <div class="phone">
                                     <div class="label-input">
@@ -113,7 +121,7 @@
                                     <div class="label-input">
                                         <label for="email">Email</label>
                                     </div>
-                                    <input type="email" value="{{ patient.email }}" id="email" name="email" />
+                                    <input type="email" value="{{ patient.email }}" id="email" name="email" readonly/>
                                 </div>
                                 <div class="joinedDate">
                                     <div class="label-input">
@@ -133,7 +141,7 @@
                                     <div class="label-input">
                                         <label for="age">Age</label>
                                     </div>
-                                    <input type="text" value="{{ patient.age }}" id="age" name="age" />
+                                    <input type="text" value="{{ patient.age }}" id="age" name="age" readonly/>
                                 </div>
                             </div>
                             <div class="form-row">
@@ -141,19 +149,22 @@
                                     <div class="label-input">
                                         <label for="gender">Gender</label>
                                         <div class="selector">
-                                            <input type="radio" id="male" name="gender" value="male" {% if patient.gender == 'male' %}checked{% endif %}>
+                                            <input type="radio" id="male" name="gender" value="male" {% if patient.gender == 'male' %}checked{% endif %} disabled>
                                             <label for="male">Male</label>
-                                            <input type="radio" id="female" name="gender" value="female" {% if patient.gender == 'female' %}checked{% endif %}>
+                                            <input type="radio" id="female" name="gender" value="female" {% if patient.gender == 'female' %}checked{% endif %} disabled>
                                             <label for="female">Female</label>
-                                            <input type="radio" id="others" name="gender" value="others" {% if patient.gender == 'others' %}checked{% endif %}>
+                                            <input type="radio" id="others" name="gender" value="others" {% if patient.gender == 'others' %}checked{% endif %} disabled>
                                             <label for="others">Others</label>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="form-row">
-                                <button type="submit">Edit profile</button>
+                            <div class="form-row editButtonContainer" id="editButtonContainer">
+                                <button type="button" id="editButton">Edit profile</button>
+                                <button type="button" id="cancelButton" class="cancelButton">Cancel</button>
+                                <button type="Submit" id="saveButton" class="saveButton">Save</button>
                             </div>
+                            <input type="text" id="hiddenRadioValue" name="hiddenRadioValue" value="{{ patient.gender }}" hidden>
                         </form>
                     </div>
                 </div>
@@ -175,7 +186,45 @@
         </form>
     </div>
 </div>
+<script>
+    const userName = document.getElementById('userName')
+    const email = document.getElementById("email")
+    const age = document.getElementById("age")
+    const radioButtons = document.getElementsByName("gender")
+    const editButton = document.getElementById("editButton")
+    const cancelButton = document.getElementById("cancelButton")
+    const saveButton = document.getElementById("saveButton")
+    const hiddenRadioValue = document.getElementById("hiddenRadioValue")
 
+    editButton.onclick = () => {
+        userName.readOnly = false
+        email.readOnly = false
+        age.readOnly = false
+        userName.classList.add("active")
+        email.classList.add("active")
+        age.classList.add("active")
+        radioButtons.forEach(button => {
+            button.disabled = !button.disabled 
+        })
+        editButton.style.display = "none"
+        cancelButton.style.display = "block"
+        saveButton.style.display = "block"
+    }
+
+    radioButtons.forEach((radioButton)=> {
+        radioButton.addEventListener('change', function() {
+            if (this.checked) {
+                hiddenRadioValue.value = this.value;
+                console.log(hiddenRadioValue.value);
+            }
+        });
+    });
+
+    cancelButton.onclick = () => {
+        location.reload();
+    }
+
+</script>
 <script src="{% static 'js/app.js' %}"></script>
 <script src="{% static '/js/logout-modal.js' %}"></script>
 </body>

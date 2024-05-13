@@ -78,9 +78,15 @@
                 <div class="logout">
                     <a href="#" id="logoutButton">
                         <div class="iconFrame">
+                            {% if current_user.patient.profile_image %}
+                            <img
+                                src="{{ request.user.patient.profile_image.url }}"
+                                alt="User image" />
+                            {% else %}
                             <img
                                 src="{% static '/images/logout.svg' %}"
-                                alt="" />
+                                alt="Default Image" />
+                            {% endif %}
                         </div>
                         Logout
                     </a>
