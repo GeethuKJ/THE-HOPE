@@ -18,12 +18,14 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
-from web.views import login_view, patient_registration, therapist_registration, register_account, logout_user
+from web.views import login_view, patient_registration, therapist_registration, register_account, logout_user,landing_page
 from therapist.views import admin_dashboard
 
 urlpatterns = [
     # path('jet/', include('jet.urls', 'jet')),
-    path('', login_view, name='login'),
+    # path('jet/dashboard/', include('jet.dashboard.urls', 'jet-dashboard')),
+
+    path('', landing_page, name='landing_page'),
     path('admin/', admin.site.urls),
     path('register-account/', register_account, name='register-account'),
     path('login/', login_view, name='login'),

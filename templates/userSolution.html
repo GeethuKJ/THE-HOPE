@@ -122,6 +122,12 @@
                                                     cols="2"
                                                     rows="5"
                                                     placeholder="Write your problem here..."></textarea>
+                                                <select name="select_therapist" id="">
+                                                    <option value="">select specific therapist if needed</option>
+                                                    {% for therapist in therapists %}
+                                                    <option value="{{ therapist.id }}">{{ therapist.name }}</option>
+                                                    {% endfor %}
+                                                </select>
                                                 <div class="buttonContainer">
                                                     <button
                                                         type="reset"
@@ -163,6 +169,9 @@
                                                     <div class="name">
                                                         {{ solution.therapist.name }}
                                                     </div>
+                                                    <a href="tel:{{solution.therapist.contact_number}}" class="dialer">
+                                                        <img src="/static/images/dialer.svg" alt="dialer">
+                                                    </a>
                                                 </div>
                                                 <div class="title">
                                                     {{ solution.problem.title }}

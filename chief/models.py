@@ -54,6 +54,7 @@ class Therapist(models.Model):
     password = models.CharField(null=True, blank=True)
     profile_image = models.ImageField(upload_to='profile_images/',null=True, blank=True)
     user_role = models.CharField(choices=THERAPIST_USER_ROLE,default="therapist")
+    achievements = models.CharField(max_length=256, null=True, blank=True)
     
     class Meta:
         db_table = 'chief_therapist'
@@ -105,6 +106,7 @@ class Problem(models.Model):
     title = models.CharField(max_length=256, null=True, blank=True)
     description = models.TextField()
     patient = models.ForeignKey(Patient, on_delete=models.CASCADE, related_name='problem', null=True, blank=True)
+    therapist = models.ForeignKey(Therapist, on_delete=models.CASCADE, null=True, blank=True)
 
     class Meta:
         db_table = 'chief_problem'

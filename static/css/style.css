@@ -48,7 +48,7 @@ a {
     width: 500px;
     display: flex;
     flex-direction: column;
-    background-color: #FFFFFF;
+    background-color: #ffffff;
     padding: 56px;
     border-radius: 24px;
 }
@@ -68,7 +68,7 @@ a {
 
 #selectUser .registration-link {
     padding: 15px 20px;
-    border: 1px solid #F5F5F5;
+    border: 1px solid #f5f5f5;
     border-radius: 10px;
     /* width: 41%; */
     text-align: center;
@@ -146,7 +146,8 @@ a {
     margin-bottom: 5px;
     margin-right: 10px;
 }
-#login .right .rightContent form .field input, #login .right .rightContent form .field .input{
+#login .right .rightContent form .field input,
+#login .right .rightContent form .field .input {
     border: 1px solid #f2eef3;
     border-radius: 8px !important;
     width: 100%;
@@ -198,8 +199,8 @@ a {
     margin-right: 4px;
 }
 #login .right .rightContent form .account p a {
-    color: #8AC185 !important;
-    border-bottom: 1px solid #8AC185;
+    color: #8ac185 !important;
+    border-bottom: 1px solid #8ac185;
 }
 
 header {
@@ -209,7 +210,7 @@ header {
 header .logoProfile {
     display: flex;
     justify-content: space-between;
-    gap: 107px;
+    gap: 61px;
     align-items: center;
     position: fixed;
     z-index: 2;
@@ -223,11 +224,11 @@ header .logoProfile .logoFrame {
 }
 
 header .logoProfile .profile {
-    width: 1644px;
+    width: 2451px;
     height: 85px;
     display: flex;
     align-items: center;
-    justify-content: end;
+    justify-content: center;
     background-color: #fcffff;
     border: 1px solid #e7f0e6;
     border-right: none;
@@ -242,9 +243,8 @@ header .logoProfile .profile .profileContainer {
     margin-right: 50px;
 }
 
-header .logoProfile .profile .profileContainer {
-    
-}
+/* header .logoProfile .profile .profileContainer {
+} */
 
 header .logoProfile .profile .profileContainer .profileFrame {
     display: flex;
@@ -253,9 +253,9 @@ header .logoProfile .profile .profileContainer .profileFrame {
     border-radius: 50%;
 }
 
+
 header .logoProfile .profile .profileContainer img {
     border-radius: 50%;
-
 }
 
 header .logoProfile .profile .name {
@@ -578,12 +578,29 @@ td {
     display: flex;
     flex-direction: column;
     gap: 20px;
-    height: 71vh;
+    /* height: 71vh; */
+    min-height: 71vh;
 }
 #therapistSingle .container .bottom .therapistDetails .left .profile {
     display: flex;
     flex-direction: column;
     align-items: center;
+}
+#viewProblemButton {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: end;
+}
+
+#dialer {
+    display: flex;
+    width: 25px;
+    margin-bottom: 10px;
+}
+
+#dialer img {
+    width: 100%;
 }
 #therapistSingle
     .container
@@ -1412,6 +1429,7 @@ td {
     display: flex;
     align-items: center;
     gap: 8px;
+    position: relative;
 }
 #viewProblem
     .container
@@ -1488,9 +1506,8 @@ td {
     margin-top: 20px;
 }
 #viewProblem .container .top .bottom .solutionSection .solutions {
-    display: flex;    
+    display: flex;
     justify-content: space-between;
-
 }
 #viewProblem .container .top .bottom .solutionSection li a {
     /* display: flex; */
@@ -1700,11 +1717,16 @@ td {
     align-items: center;
     margin-bottom: 21px;
 }
-#profile .profileContainer .container .profileDetails form .form-row .active{
+#profile .profileContainer .container .profileDetails form .form-row .active {
     border: 1px solid #000000;
 }
 
-#profile .profileContainer .container .profileDetails form .editButtonContainer {
+#profile
+    .profileContainer
+    .container
+    .profileDetails
+    form
+    .editButtonContainer {
     gap: 10px;
 }
 #editButtonContainer {
@@ -1732,10 +1754,22 @@ td {
     border-radius: 58px;
 }
 
-#profile .profileContainer .container .profileDetails form .form-row .saveButton {
-    display: none;   
+#profile
+    .profileContainer
+    .container
+    .profileDetails
+    form
+    .form-row
+    .saveButton {
+    display: none;
 }
-#profile .profileContainer .container .profileDetails form .form-row .cancelButton {
+#profile
+    .profileContainer
+    .container
+    .profileDetails
+    form
+    .form-row
+    .cancelButton {
     display: none;
 }
 
@@ -1908,7 +1942,25 @@ td {
     align-items: center;
     gap: 8px;
     margin-bottom: 12px;
+    position: relative;
 }
+
+
+#userSolutions
+    .container
+    .bottom
+    .solutionSection
+    ulspotlightSlickImage
+    li
+    .solutions
+    .subject
+    .profileName
+    .dialer{
+        position: absolute;
+        right: 1%;
+        top: 50%;
+        width: 25px;
+    }
 
 #userSolutions
     .container

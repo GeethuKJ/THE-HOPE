@@ -2,7 +2,7 @@ from django.shortcuts import render,get_object_or_404, redirect
 from chief.models import Problem,Solution,Patient,Therapist
 from datetime import date,datetime
 from django.utils import timezone
-
+from django.db.models import Q
 
 
 # Create your views here.
@@ -41,7 +41,15 @@ def admin_dashboard(request):
 
 
 def problems(request):
-    problem_list = Problem.objects.all()
+    current_user = request.user
+    problem_list = Problem.objects.filter(Q(therapist__isnull=True) | Q(therapist__user=current_user))
+    problems = problem_list.values_list('id', flat=True)
+    
+    if Solution.objects.filter(problem__id__in=problems).exists():
+        solved_problems = Solution.objects.filter(problem__id__in=problems).values_list('problem__id', flat=True)
+    
+    problem_list = problem_list.exclude(id__in=solved_problems)
+
     context = {
         'problem_list' : problem_list
     }

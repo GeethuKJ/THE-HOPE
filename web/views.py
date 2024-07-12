@@ -29,14 +29,11 @@ def login_view(request):
                     if Patient.objects.filter(user=user).exists():
                         role = 'patient'
                         return redirect('/user/')
-                    elif Therapist.objects.filter(user=user).exists():
+                    elif Therapist.objects.filter(request_status="approved", user=user).exists():
                         role = 'therapist'
                         return redirect('/therapist-dashboard/')
-                    elif Therapist.objects.filter(user=user,user_role = "therapist").exists():
-                        role = 'admin'
-                        return redirect('/admin/dashboard/')
                     else:
-                        message = "User role doesn't exist"
+                        message = "Please get approval from admin to access your account"
                 else:
                     message = "user doesn't exist"
             else:
@@ -134,6 +131,23 @@ def therapist_registration(request):
     
 def register_account(request):
     return render(request,'auth/registerAccount.html',{})
+
+
+def landing_page(request):
+    
+    therapists = Therapist.objects.all()
+    therapists_count = therapists.count()
+    patients_count = Patient.objects.all().count()
+    soultions_count = Solution.objects.all().count()
+
+    context = {
+        'therapists' :  therapists,
+        'therapist_count' : therapists_count,
+        'patient_count' : patients_count,
+        'soultions_count' : soultions_count,
+    }
+
+    return render(request,'landingPage.html',context)
 
 
 def logout_user(request):

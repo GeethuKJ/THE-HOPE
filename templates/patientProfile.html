@@ -23,7 +23,7 @@
             <div class="profileContainer">
                 <div class="profileFrame">
                     <img
-                        src="{% static '/images/profile-image.png' %}"
+                        src="{{ request.user.patient.profile_image.url }}"
                         alt="" />
                 </div>
                 <span class="name"> {{ request.user.patient.name }} </span>

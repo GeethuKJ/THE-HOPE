@@ -121,10 +121,11 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="buttonContainer">
+                                        <div class="buttonContainer" id="viewProblemButton">
                                             <button class="backgroundButton">
                                                 Post solution
                                             </button>
+                                            <a href="tel:{{problem.patient.contact_number}}" id="dialer"><img src="{% static '/images/dialer.svg' %}" alt="Call icon"></a>
                                             <div class="modal" id="myModal">
                                                 <div class="modal-content">
                                                     <span class="close"

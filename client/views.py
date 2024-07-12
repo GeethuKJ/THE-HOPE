@@ -23,19 +23,32 @@ def profile(request):
 def user_solution(request):
     current_user = request.user
     solutions = Solution.objects.filter(problem__patient__user=current_user)
+    therapists = Therapist.objects.all()
     context = {
-        'solution': solutions
+        'solution': solutions,
+        'therapists' : therapists,
     }
     return render(request, "userSolution.html", context)
 
 
 def post_problem(request):
     if request.method == 'POST':
+
+        current_user = request.user
         title = request.POST.get('title')
         description = request.POST.get('description')
-        current_user = request.user
+        therapist_id = request.POST.get('select_therapist')
+
+        if therapist_id:
+            if Therapist.objects.filter(id=therapist_id).exists():
+                therapist = Therapist.objects.get(id=therapist_id)
+            else:
+                therapist = None
+        else:
+            therapist = None
+
         patient = Patient.objects.get(user=current_user)
-        problem = Problem.objects.create(title=title, description=description, patient=patient)
+        problem = Problem.objects.create(title=title, description=description, patient=patient, therapist = therapist)
         return redirect('user_solution')
     else:
         return render(request, "userSolution.html")
